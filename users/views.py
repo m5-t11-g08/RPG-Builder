@@ -3,12 +3,30 @@ from django.contrib.auth import authenticate
 from rest_framework.views import Request, Response, status, APIView
 from rest_framework import generics
 from rest_framework.authtoken.models import Token
-from .serializers import UserSerializer, LoginSerializer
+from rest_framework.authentication import TokenAuthentication
+from .permissions import OwnAccountOrReadOnlyPermission, OwnAccountPermission
+from .serializers import UserSerializer, LoginSerializer, UserDetailSerializer, UserUpdatePasswordSerializer
 from .models import User
 
 
 class UserView(generics.ListCreateAPIView):
     serializer_class = UserSerializer
+    queryset = User.objects.all()
+
+
+class UserDetailView(generics.RetrieveUpdateDestroyAPIView):
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [OwnAccountOrReadOnlyPermission]
+
+    serializer_class = UserDetailSerializer
+    queryset = User.objects.all()
+
+
+class UserUpdatePasswordView(generics.UpdateAPIView):
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [OwnAccountPermission]
+
+    serializer_class = UserUpdatePasswordSerializer
     queryset = User.objects.all()
 
 
