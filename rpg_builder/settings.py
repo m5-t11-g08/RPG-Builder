@@ -36,12 +36,7 @@ DJANGO_APPS = [
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-<<<<<<< HEAD
-    'django.contrib.staticfiles',
-    'classes',
-=======
     'django.contrib.staticfiles', 
->>>>>>> 6f4992df21fba0d6f03dce3ad37e6d3c2ead2c18
 ]
 
 THIRD_PARTY_APPS = [
@@ -136,4 +131,4 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-AUTH_USER_MODEL = "users.User"
+# AUTH_USER_MODEL = "users.User"
