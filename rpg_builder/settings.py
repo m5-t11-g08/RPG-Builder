@@ -139,6 +139,9 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+<<<<<<< HEAD
+# AUTH_USER_MODEL = "users.User"
+=======
 AUTH_USER_MODEL = "users.User"
 
 DATABASE_URL = os.getenv('DATABASE_URL')
@@ -149,3 +152,4 @@ if DATABASE_URL:
     DATABASES['default'].update(db_from_env)
 
 ALLOWED_HOSTS = ['rpg-builder-kenzie.herokuapp.com', 'localhost']
+>>>>>>> edc5736179705b78fbd8bd68e443c90d2969f30e
