@@ -14,10 +14,13 @@ class UserSerializer(serializers.ModelSerializer):
             "username",
             "password",
             "email",
-            "is_superuser"
+            "is_superuser",
+            "character"
         ]
 
+        read_only_fields = ["character", "id"]
     
+
     def create(self, validated_data:dict) -> User:
         user = User.objects.create_user(**validated_data)
 
@@ -36,10 +39,11 @@ class UserDetailSerializer(serializers.ModelSerializer):
             "id",
             "username",
             "email",
-            "is_superuser"
+            "is_superuser",
+            "character"
         ]
 
-        read_only_fields = ["id"]
+        read_only_fields = ["id", "character"]
 
     
 class UserUpdatePasswordSerializer(serializers.ModelSerializer):
@@ -52,10 +56,11 @@ class UserUpdatePasswordSerializer(serializers.ModelSerializer):
             "username",
             "password",
             "email",
-            "is_superuser"
+            "is_superuser",
+            "character"
         ]
 
-        read_only_fields = ["id", "username", "email", "is_superuser"]
+        read_only_fields = ["id", "username", "email", "is_superuser", "character"]
 
 
     def update(self, instance, validated_data):

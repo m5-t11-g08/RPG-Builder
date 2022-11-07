@@ -13,18 +13,17 @@ class Character(models.Model):
 
     equipments = models.ManyToManyField(
         "equipments.Equipment",
-        on_delete=models.CASCADE,
         related_name="equipments"
     )
 
     skills = models.ManyToManyField(
         "skills.Skill",
-        on_delete=models.CASCADE,
         related_name="skills"
     )
 
-    stats = models.OneToOneField(
-        "stats.Stat",
-        on_delete=models.CASCADE,
-        related_name="stats"
-    )
+    # stats = models.OneToOneField(
+    #     "stats.Stat",
+    #     on_delete=models.CASCADE,
+    #     related_name="stats"
+    # )
+    
