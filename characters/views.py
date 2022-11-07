@@ -5,6 +5,7 @@ from .permissions import IsAdminOrReadOnly, IsOwner
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from django.http import Http404
 from .models import Character
+from ipdb import set_trace
 
 class CharactersView(APIView):
     authentication_classes = [TokenAuthentication]

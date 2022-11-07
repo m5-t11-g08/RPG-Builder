@@ -1,6 +1,13 @@
 from django.db import models
+from users.models import User
 
 class Character(models.Model):
+    owner = models.OneToOneField(
+        "users.User",
+        on_delete=models.CASCADE,
+        related_name="owner"
+    )
+    
     name = models.CharField(max_length=20)
     level = models.PositiveIntegerField()
     silver = models.PositiveIntegerField()

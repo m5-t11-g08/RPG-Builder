@@ -9,6 +9,7 @@ from classes.models import Class
 from skills.models import Skill
 from django.http import Http404
 from .models import Character
+from ipdb import set_trace
 
 class CharacterSerializer(serializers.ModelSerializer):
     id = serializers.UUIDField(read_only=True)
@@ -18,9 +19,15 @@ class CharacterSerializer(serializers.ModelSerializer):
     silver = serializers.IntegerField(default=100, allow_null=True)
     gold = serializers.IntegerField(default=20, allow_null=True)
     
-    char_class = ClassSerializer()
-    equipments = EquipmentSerializer()
-    skills = Skill_Serializer()
+    _class = serializers.CharField(max_length=50, write_only=True)
+    _equipments = serializers.ListField(write_only=True)
+    _skills = serializers.ListField(write_only=True)
+
+    char_class = ClassSerializer(read_only=True)
+    equipments = EquipmentSerializer(read_only=True)
+    skills = Skill_Serializer(read_only=True)
+
+    auth_token = serializers.CharField(write_only=True)
     # stats = StatsSerializer
 
     class Meta:
@@ -33,28 +40,40 @@ class CharacterSerializer(serializers.ModelSerializer):
             'gold',
             'char_class',
             'equipments',
-            'skills'
+            'skills',
+            '_class',
+            '_equipments',
+            '_skills',
+            'auth_token'
         ]
 
     def create(self, validated_data):
         character_owner = Token.objects.get(key=validated_data['auth_token']).user
-        equipments = validated_data["equipments"]
-        skills = validated_data["skills"]
+        
+        equipments_list = validated_data.pop('_equipments')
+        skills_list = validated_data.pop('_skills')
+        token = validated_data.pop('auth_token')
+        _class = validated_data.pop('_class')
 
-        validated_data.pop('equipments')
-        validated_data.pop('auth_token')
+        try:
+            character_exist = Character.objects.get(name=validated_data['name'])
+        except Character.DoesNotExist:
+            character_exist = None
 
-        characters = Character.objects.get(name=validated_data['name'])
-        if characters:
+        if character_exist:
             raise PermissionDenied()
         
-        character_class = Class.objects.get(name=validated_data['class'])
+        character_class = Class.objects.get(name=_class)
         if not character_class:
-            raise Http404("Class not found.")
+             raise Http404("Class not found.")
 
-        created_character = Character.objects.create(**validated_data, char_class=character_class)
+        created_character = Character.objects.create(
+            **validated_data,
+            char_class_id=character_class.id,
+            owner_id=character_owner.id
+        )
 
-        for equipment in equipments:
+        for equipment in equipments_list:
             equipment_obj, _ = Equipment.objects.get(
                 name=equipment["name"]
             )
@@ -65,7 +84,7 @@ class CharacterSerializer(serializers.ModelSerializer):
             
             created_character.equipments.add(equipment_obj)
 
-        for skill in skills:
+        for skill in skills_list:
             skill_obj, _ = Skill.objects.get(
                 name=equipment["name"]
             )
