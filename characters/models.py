@@ -25,4 +25,9 @@ class Character(models.Model):
     #     "stats.Stat",
     #     on_delete=models.CASCADE,
     #     related_name="stats"
+<<<<<<< HEAD
     # )
+=======
+    # )
+    
+>>>>>>> 344ce6b704b4f36f4296adccf227adb22fde6343

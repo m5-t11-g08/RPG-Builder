@@ -45,7 +45,8 @@ DJANGO_APPS = [
 
 THIRD_PARTY_APPS = [
     "rest_framework",
-    "rest_framework.authtoken"
+    "rest_framework.authtoken",
+    "drf_spectacular"
 ]
 
 MY_APPS = ["users", "skills", "equipments", "classes", "characters"]
@@ -148,4 +149,15 @@ if DATABASE_URL:
         default=DATABASE_URL, conn_max_age=500, ssl_require=True)
     DATABASES['default'].update(db_from_env)
 
-ALLOWED_HOSTS = ['rpg-builder-kenzie.herokuapp.com', 'localhost']
+ALLOWED_HOSTS = ['rpg-builder-kenzie.herokuapp.com', 'localhost', '127.0.0.1']
+
+REST_FRAMEWORK = {
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema'
+}
+
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'RPG Builder',
+    'DESCRIPTION': 'An API to manage tabletop RPG games',
+    'VERSION': '1.0.0',
+    'SERVE_INCLUDE_SCHEMA': False
+}

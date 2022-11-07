@@ -7,4 +7,6 @@ class User(AbstractUser):
     id = models.UUIDField(default=uuid.uuid4, primary_key=True, editable=False)
     username = models.CharField(max_length=20, unique=True)
     email = models.EmailField(max_length=80, unique=True)
+
+    character = models.OneToOneField("characters.Character", on_delete=models.CASCADE, null=True, blank=True)
     
