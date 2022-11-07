@@ -1,6 +1,4 @@
-from enum import unique
 from django.db import models
-from traitlets import default
 
 import uuid
 
