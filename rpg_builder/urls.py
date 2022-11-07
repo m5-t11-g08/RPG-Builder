@@ -20,6 +20,13 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path("api/", include("classes.urls")),
     path('api/user/', include("users.urls")),
+<<<<<<< HEAD
     path('api/user/', include("users.urls")),
     path('api/skills/', include("skills.urls"))
+=======
+    path('api/skills/', include("skills.urls")),
+    path('api/characters/', include("characters.urls")),
+    path('api/equipments/', include("equipments.urls")),
+    path('api/classes/', include("classes.urls"))
+>>>>>>> d5ea9f0 (feat: parcialmente criado os relacionamentos da model)
 ]
