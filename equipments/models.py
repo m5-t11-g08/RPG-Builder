@@ -9,7 +9,7 @@ class ItemCategory (models.TextChoices):
     UNIDENTIFIED = "Unidentified"
 
 class Equipment(models.Model):
-    name = models.CharField(max_length=30)
+    name = models.CharField(max_length=30, unique=True)
     durability = models.IntegerField(default=100)
     add_attack = models.IntegerField(default=0)
     add_defense = models.IntegerField(default=0)
