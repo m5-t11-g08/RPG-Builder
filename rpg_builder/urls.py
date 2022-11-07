@@ -18,5 +18,9 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+<<<<<<< HEAD
     path("api/", include("classes.urls")),
+=======
+    path('api/user/', include("users.urls"))
+>>>>>>> 7b2278b (feat: added register, login, get all and settings)
 ]
