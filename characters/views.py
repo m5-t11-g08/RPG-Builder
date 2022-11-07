@@ -1,15 +1,17 @@
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.views import APIView, Request, Response
 from .serializers import CharacterSerializer
-from .permissions import IsAdminOrReadOnly
+from .permissions import IsAdminOrReadOnly, IsOwner
+from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from django.http import Http404
 from .models import Character
 
 class CharactersView(APIView):
     authentication_classes = [TokenAuthentication]
-    permission_classes = [IsAdminOrReadOnly]
-
+    permission_classes = [IsAuthenticatedOrReadOnly]
+    
     def post(self, request: Request) -> Response:
+        request.data["auth_token"] = str(request.auth)
         serializer = CharacterSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         serializer.save()
@@ -22,7 +24,7 @@ class CharactersView(APIView):
 
 class SpecificCharacter(APIView):
     authentication_classes = [TokenAuthentication]
-    permission_classes = [IsAdminOrReadOnly]
+    permission_classes = [IsAdminOrReadOnly | IsOwner]
 
     def get(self, request: Request, character_id) -> Response:
         character = try_get(character_id)
