@@ -1,7 +1,9 @@
 from django.urls import path
-from .views import SkillsViews,SkillsViewsbyId
+from .views import SkillsGetViews,SkillsViewsbyId,SkillsCreateViews,SkillsGetViewsbyId
 
 urlpatterns = [
-    path('get/', SkillsViews.as_view()),
-    path('get/<pk>/', SkillsViewsbyId.as_view()),
+    path('', SkillsGetViews.as_view()),
+    path('get/<pk>/', SkillsGetViewsbyId.as_view()),
+    path('create/', SkillsCreateViews.as_view()),
+    path('<pk>/', SkillsViewsbyId.as_view()),
 ]

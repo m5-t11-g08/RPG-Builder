@@ -6,4 +6,15 @@ class Skill_Serializer(serializers.ModelSerializer):
 
     class Meta:
         model = Skill
-        fields = '__all__'
+        fields = [
+            'id',
+            'name',
+            'damage',
+            'mana_cost',
+        ]
+
+        # extra_kwargs = {'id': {'read_only': True}}
+
+    # def create(self, validated_data:dict) -> Skill:
+    #     new_skill = Skill.objects.create(**validated_data)
+    #     return new_skill
