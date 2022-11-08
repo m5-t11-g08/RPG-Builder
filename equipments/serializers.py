@@ -1,7 +1,6 @@
 from rest_framework import serializers
 from characters.models import Character
 from equipments.models import Equipment
-from characters.serializers import CharacterSerializer
 from rest_framework.views import Response, status
 from django.http import Http404
 
