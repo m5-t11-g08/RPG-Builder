@@ -8,6 +8,7 @@ class ItemCategory (models.TextChoices):
     CONSUMABLE = "Consumable"
     UNIDENTIFIED = "Unidentified"
 
+
 class Equipment(models.Model):
     id = models.UUIDField(default=uuid.uuid4, primary_key=True, editable=False)
     name = models.CharField(max_length=30)
@@ -20,4 +21,3 @@ class Equipment(models.Model):
         max_length=30,
         choices=ItemCategory.choices,
         default=ItemCategory.UNIDENTIFIED
-        )
