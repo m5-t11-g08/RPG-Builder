@@ -4,7 +4,7 @@ from django.http import Http404
 from .models import Skill
 
 class Skill_Serializer(serializers.ModelSerializer):
-    characters = serializers.ListField(default=None)
+    characters = serializers.ListField(default=None, write_only=True)
 
     class Meta:
         model = Skill
@@ -18,9 +18,11 @@ class Skill_Serializer(serializers.ModelSerializer):
 
         # extra_kwargs = {'id': {'read_only': True}}
 
-    # def create(self, validated_data:dict) -> Skill:
-    #     new_skill = Skill.objects.create(**validated_data)
-    #     return new_skill
+    def create(self, validated_data:dict) -> Skill:
+        if "characters" in validated_data:
+            validated_data.pop("characters")
+        new_skill = Skill.objects.create(**validated_data)
+        return new_skill
 
     def update(self, instance: Skill, validated_data):
         if "characters" in validated_data:
