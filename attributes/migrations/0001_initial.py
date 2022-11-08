@@ -13,12 +13,13 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.CreateModel(
-            name='Skill',
+            name='Attribute',
             fields=[
                 ('id', models.UUIDField(default=uuid.uuid4, editable=False, primary_key=True, serialize=False)),
-                ('name', models.CharField(max_length=30, unique=True)),
-                ('damage', models.IntegerField()),
-                ('mana_cost', models.IntegerField(default=0)),
+                ('life', models.PositiveIntegerField()),
+                ('atack', models.PositiveIntegerField()),
+                ('defense', models.PositiveIntegerField()),
+                ('mana', models.PositiveIntegerField()),
             ],
         ),
     ]

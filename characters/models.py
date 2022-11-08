@@ -31,9 +31,9 @@ class Character(models.Model):
         related_name="user_char"
     )
 
-    # stats = models.OneToOneField(
-    #     "stats.Stat",
-    #     on_delete=models.CASCADE,
-    #     related_name="stats"
-    # )
+    attributes = models.OneToOneField(
+        "attributes.Attribute",
+        on_delete=models.CASCADE,
+        related_name="attributes"
+    )
     

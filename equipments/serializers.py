@@ -13,9 +13,11 @@ class EquipmentSerializer(serializers.Serializer):
     add_mana = serializers.IntegerField(default=0)
     add_life = serializers.IntegerField(default=0)
     category = serializers.CharField()
-    characters = serializers.ListField(default=None)
+    characters = serializers.ListField(default=None, write_only=True)
 
     def create(self, validated_data):
+        if "characters" in validated_data:
+            validated_data.pop("characters")
         equipment = Equipment.objects.create(**validated_data)
         return equipment
 
