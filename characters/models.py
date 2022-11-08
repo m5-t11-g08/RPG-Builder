@@ -34,6 +34,7 @@ class Character(models.Model):
     attributes = models.OneToOneField(
         "attributes.Attribute",
         on_delete=models.CASCADE,
-        related_name="attributes"
+        related_name="attributes",
+        null=True
     )
     
