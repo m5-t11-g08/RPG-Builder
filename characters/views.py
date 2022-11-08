@@ -15,7 +15,7 @@ class CharactersView(APIView):
         import ipdb
 
         serializer.is_valid(raise_exception=True)
-        serializer.save()
+        serializer.save(user=self.request.user)
         return Response(serializer.data, 201)
 
     

@@ -25,6 +25,12 @@ class Character(models.Model):
         related_name="skills"
     )
 
+    user = models.OneToOneField(
+        "users.User", 
+        on_delete=models.CASCADE, 
+        related_name="user_char"
+    )
+
     # stats = models.OneToOneField(
     #     "stats.Stat",
     #     on_delete=models.CASCADE,

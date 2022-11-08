@@ -69,6 +69,9 @@ class CharacterRegisterViewTest(APITestCase):
     def test_initial_gold_character(self):
         """"Verifica se a quantidade inicial de ouro está correta"""
 
+        print("="*100)
+        print(self.response_create_character)
+        print("="*100)
         expected_gold = 1000
         gold_character = self.response_create_character.data["gold"]
 

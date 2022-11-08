@@ -30,7 +30,8 @@ class ModelCharacterTest(TestCase):
             "level": 1,
             "silver": 100,
             "gold": 100, 
-            "char_class_id": cls.classe.id
+            "char_class_id": cls.classe.id,
+            "user_id": cls.user.id
         }
         cls.character = Character.objects.create(**cls.character_data, user=cls.user, char_class=cls.classe)
 
