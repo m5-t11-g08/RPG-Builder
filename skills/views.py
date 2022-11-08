@@ -1,7 +1,6 @@
 from django.shortcuts import render
 from rest_framework.generics import ListAPIView
 from rest_framework import generics
-
 from rest_framework.permissions import IsAuthenticated
 from .permissions import So_adm
 from rest_framework.authentication import TokenAuthentication

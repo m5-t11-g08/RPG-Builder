@@ -13,7 +13,7 @@ class ClassView(generics.ListCreateAPIView):
 
     queryset = Class.objects.all()
     serializer_class = ClassSerializer
-
+    
 
 class ClassDetailView(generics.RetrieveUpdateDestroyAPIView):
     # authentication_classes = [TokenAuthentication]
