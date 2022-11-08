@@ -42,4 +42,4 @@ class EquipmentSerializer(serializers.Serializer):
             for character in characters:
                 obj, _ = Character.objects.get_or_create(**character)
                 obj.equipments.add(equip)
-            return instance
+        return instance
