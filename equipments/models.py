@@ -21,3 +21,4 @@ class Equipment(models.Model):
         max_length=30,
         choices=ItemCategory.choices,
         default=ItemCategory.UNIDENTIFIED
+    )
