@@ -2,10 +2,8 @@ from rest_framework import serializers
 from .models import Character
 from classes.serializer import ClassSerializer
 from classes.models import Class
-from users.serializers import UserSerializer
 from equipments.serializers import EquipmentSerializer
 from skills.serializers import Skill_Serializer
-from django.http import Http404
 from .errors import Class404
 
 class CharacterSerializer(serializers.ModelSerializer):

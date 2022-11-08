@@ -25,5 +25,6 @@ urlpatterns = [
     path('api/skill/', include("skills.urls")),
     path("api/character/", include('characters.urls')),
     path("api/class/", include("classes.urls")),
-    path("api/equipment/", include("equipments.urls"))
+    path("api/equipment/", include("equipments.urls")),
+    path("api/attribute/", include("attributes.urls"))
 ]
