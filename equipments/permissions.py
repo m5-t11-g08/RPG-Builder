@@ -1,6 +1,4 @@
 from rest_framework import permissions
-import ipdb
-from django.forms.models import model_to_dict
 
 
 class IsSuperUserOrReadOnly(permissions.BasePermission):
