@@ -42,6 +42,8 @@ class CharacterSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         char_class_id = validated_data.pop("char_class_id")
+        validated_data.pop("equipments")
+        validated_data.pop("skills")
 
         try:
             char_class = Class.objects.get(id=char_class_id)
