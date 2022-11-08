@@ -2,7 +2,7 @@ from rest_framework import serializers
 from characters.models import Character
 from equipments.models import Equipment
 from rest_framework.views import Response, status
-from django.http import Http404
+from rpg_builder.errors import Character404
 
 class EquipmentSerializer(serializers.Serializer):
     id = serializers.UUIDField(read_only=True)
@@ -36,7 +36,7 @@ class EquipmentSerializer(serializers.Serializer):
                     obj.equipments.add(instance)
                     
                 except Character.DoesNotExist:
-                    raise Http404
+                    raise Character404
         else:
             for key, value in validated_data.items():
                 setattr(instance, key, value)
