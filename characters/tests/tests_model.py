@@ -5,6 +5,7 @@ from characters.models import Character
 from users.models import User
 from classes.models import Class
 
+
 class ModelCharacterTest(TestCase):
     @classmethod
     def setUpTestData(cls) -> None:

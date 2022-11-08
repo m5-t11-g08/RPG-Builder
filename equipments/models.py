@@ -8,6 +8,7 @@ class ItemCategory (models.TextChoices):
     CONSUMABLE = "Consumable"
     UNIDENTIFIED = "Unidentified"
 
+
 class Equipment(models.Model):
     name = models.CharField(max_length=30)
     durability = models.IntegerField(default=100)
@@ -22,7 +23,3 @@ class Equipment(models.Model):
         )
 
     # characters = models.ManyToManyField(Characters, related_name= "character")
-
-
-
-# Create your models here.
