@@ -1,7 +1,7 @@
 from django.shortcuts import render
 
 from rest_framework.permissions import IsAdminUser
-from rest_framework.views import Response, status, APIView, Request
+from rest_framework.views import Response, APIView, Request
 from rest_framework import generics
 from django.shortcuts import get_object_or_404
 from rest_framework.authentication import TokenAuthentication
