@@ -1,10 +1,9 @@
 from rest_framework import serializers
 from .models import User
-
+from rest_framework import exceptions
 
 class UserSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True)
-
 
     class Meta:
         model = User
@@ -14,11 +13,12 @@ class UserSerializer(serializers.ModelSerializer):
             "password",
             "email",
             "is_superuser",
-            "character"
+            "user_char"
         ]
 
-        read_only_fields = ["character", "id"]
-    
+        read_only_fields = ["id"]
+
+        depth=1
 
     def create(self, validated_data:dict) -> User:
         user = User.objects.create_user(**validated_data)
@@ -38,11 +38,10 @@ class UserDetailSerializer(serializers.ModelSerializer):
             "id",
             "username",
             "email",
-            "is_superuser",
-            "character"
+            "is_superuser"
         ]
 
-        read_only_fields = ["id", "character"]
+        read_only_fields = ["id"]
 
     
 class UserUpdatePasswordSerializer(serializers.ModelSerializer):
@@ -55,11 +54,10 @@ class UserUpdatePasswordSerializer(serializers.ModelSerializer):
             "username",
             "password",
             "email",
-            "is_superuser",
-            "character"
+            "is_superuser"
         ]
 
-        read_only_fields = ["id", "username", "email", "is_superuser", "character"]
+        read_only_fields = ["id", "username", "email", "is_superuser"]
 
 
     def update(self, instance, validated_data):
