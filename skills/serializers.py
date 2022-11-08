@@ -1,6 +1,6 @@
 from characters.models import Character
 from rest_framework import serializers
-from django.http import Http404
+from rpg_builder.errors import Character404
 from .models import Skill
 
 class Skill_Serializer(serializers.ModelSerializer):
@@ -36,7 +36,7 @@ class Skill_Serializer(serializers.ModelSerializer):
                     obj.skills.add(instance)
                     
                 except Character.DoesNotExist:
-                    raise Http404
+                    raise Character404
         else:
             for key, value in validated_data.items():
                 setattr(instance, key, value)
