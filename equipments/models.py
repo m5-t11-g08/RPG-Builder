@@ -21,10 +21,3 @@ class Equipment(models.Model):
         max_length=30,
         choices=ItemCategory.choices,
         default=ItemCategory.UNIDENTIFIED
-<<<<<<< HEAD
-        )
-
-    # characters = models.ManyToManyField(Characters, related_name= "character")
-=======
-        )
->>>>>>> c77cf7088cec1ab144fc22b047048fad52b7b0d8

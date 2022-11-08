@@ -11,8 +11,8 @@ from .errors import Class404
 class CharacterSerializer(serializers.ModelSerializer):
     char_class_id = serializers.CharField(write_only=True)
     char_class = ClassSerializer(read_only=True)
-    equipments = EquipmentSerializer(many=True)
-    skills = Skill_Serializer(many=True)
+    equipments = EquipmentSerializer(many=True, read_only=True)
+    skills = Skill_Serializer(many=True, read_only=True)
     # user = UserSerializer(read_only=True)
 
     class Meta:
@@ -30,7 +30,7 @@ class CharacterSerializer(serializers.ModelSerializer):
             "skills"
         ]
 
-        optional_fields = [
+        read_only_fields = [
             "equipments",
             "skills"
         ]
