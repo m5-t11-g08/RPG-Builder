@@ -6,6 +6,7 @@ from .permissions import IsAdminOrReadOnly
 from django.http import Http404
 from .models import Character
 from django.shortcuts import get_object_or_404
+from .errors import Class404
 
 
 class CharactersView(APIView, PageNumberPagination):
@@ -14,10 +15,13 @@ class CharactersView(APIView, PageNumberPagination):
 
     def post(self, request: Request) -> Response:
         serializer = CharacterSerializer(data=request.data)
-        import ipdb
 
         serializer.is_valid(raise_exception=True)
-        serializer.save(user=self.request.user)
+        try:
+            serializer.save(user=self.request.user)
+        except Class404:
+            return Response({"detail": "Class not found."}, 404)
+
         return Response(serializer.data, 201)
 
     def get(self, request: Request) -> Response:

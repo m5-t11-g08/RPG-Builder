@@ -1,14 +1,7 @@
 from django.urls import path
-from .views import (
-    EquipmentGetViews,
-    EquipmentCreateViews,
-    EquipmentViewsById,
-    EquipmentGetViewsById,
-)
+from .views import EquipmentView, EquipmentDetailView
 
 urlpatterns = [
-    path("", EquipmentGetViews.as_view()),
-    path("get/<pk>/", EquipmentViewsById.as_view()),
-    path("create/", EquipmentCreateViews.as_view()),
-    path("<pk>/", EquipmentGetViewsById.as_view()),
+    path('', EquipmentView.as_view()),
+    path('<pk>/', EquipmentDetailView.as_view())
 ]
