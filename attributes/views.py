@@ -1,6 +1,4 @@
-from django.shortcuts import render
-import ipdb
-from rest_framework.permissions import IsAdminUser
+from equipments.permissions import IsSuperUserOrReadOnly
 from rest_framework.views import Response, status, APIView, Request
 from rest_framework import generics
 from django.shortcuts import get_object_or_404
@@ -13,7 +11,7 @@ from equipments.serializers import EquipmentSerializer
 
 class AttributesRetrieveCharacter(APIView):
     authentication_classes = [TokenAuthentication]
-    # permission_classes = [IsAdminUser]
+    permission_classes = [IsSuperUserOrReadOnly]
 
     def get(self, request: Request, character_id: str) -> Response:
         character = get_object_or_404(Character, id=character_id)
@@ -68,7 +66,7 @@ class AttributesRetrieveCharacter(APIView):
 
 class GetAttributes(generics.ListAPIView):
     authentication_classes = [TokenAuthentication]
-    # permission_classes = [IsAdminUser]
+    permission_classes = [IsSuperUserOrReadOnly]
 
     queryset = Attribute.objects.all()
     serializer_class = AttributeSerializer

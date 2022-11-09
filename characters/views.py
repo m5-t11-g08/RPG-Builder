@@ -7,11 +7,11 @@ from django.http import Http404
 from .models import Character
 from django.shortcuts import get_object_or_404
 from .errors import Class404
-
+from equipments.permissions import IsSuperUserOrReadOnly
 
 class CharactersView(APIView, PageNumberPagination):
     authentication_classes = [TokenAuthentication]
-    permission_classes = [IsAdminOrReadOnly]
+    permission_classes = [IsSuperUserOrReadOnly]
 
     def post(self, request: Request) -> Response:
         serializer = CharacterSerializer(data=request.data)
@@ -33,7 +33,7 @@ class CharactersView(APIView, PageNumberPagination):
 
 class SpecificCharacter(APIView):
     authentication_classes = [TokenAuthentication]
-    permission_classes = [IsAdminOrReadOnly]
+    permission_classes = [IsSuperUserOrReadOnly]
 
     def get(self, request: Request, character_id) -> Response:
         character = get_object_or_404(Character, id=character_id)
