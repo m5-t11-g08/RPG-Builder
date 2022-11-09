@@ -9,4 +9,9 @@ class Attribute(models.Model):
     defense = models.PositiveIntegerField()
     mana = models.PositiveIntegerField()
 
-    
+    character = models.OneToOneField(
+        "characters.Character",
+        on_delete=models.CASCADE,
+        related_name="char_attribute",
+        null=True
+    )    

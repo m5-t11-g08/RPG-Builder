@@ -30,11 +30,3 @@ class Character(models.Model):
         on_delete=models.CASCADE, 
         related_name="user_char"
     )
-
-    attributes = models.OneToOneField(
-        "attributes.Attribute",
-        on_delete=models.CASCADE,
-        related_name="attributes",
-        null=True
-    )
-    
