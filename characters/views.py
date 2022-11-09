@@ -2,7 +2,6 @@ from rest_framework.authentication import TokenAuthentication
 from rest_framework.views import APIView, Request, Response
 from rest_framework.pagination import PageNumberPagination
 from .serializers import CharacterSerializer
-from .permissions import IsAdminOrReadOnly
 from django.http import Http404
 from .models import Character
 from django.shortcuts import get_object_or_404
