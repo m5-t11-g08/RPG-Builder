@@ -18,6 +18,7 @@ class Skill_Test(TestCase):
 
         self.model_to_disc_bola_de_fogo = model_to_dict(self.bola_de_fogo)
 
+        print(self.model_to_disc_bola_de_fogo)
         self.assertEqual(self.model_to_disc_bola_de_fogo['name'], self.disc_bola_de_fogo['name'], "verificar o name da skill")
         self.assertEqual(self.model_to_disc_bola_de_fogo['damage'], self.disc_bola_de_fogo['damage'], "verificar o damage da skill")
         self.assertEqual(self.model_to_disc_bola_de_fogo['mana_cost'], self.disc_bola_de_fogo['mana_cost'], "verificar o mana_cost da skill")

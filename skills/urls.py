@@ -1,7 +1,7 @@
 from django.urls import path
-from .views import SkillsViews,SkillsViewsbyId
+from .views import SkillView, SkillDetailView
 
 urlpatterns = [
-    path('get/', SkillsViews.as_view()),
-    path('get/<pk>/', SkillsViewsbyId.as_view()),
+    path('', SkillView.as_view()),
+    path("<pk>/", SkillDetailView.as_view())
 ]

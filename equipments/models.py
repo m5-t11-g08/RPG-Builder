@@ -1,5 +1,5 @@
 from django.db import models
-
+import uuid
 
 class ItemCategory (models.TextChoices):
     MAGICAL = "Magical"
@@ -8,7 +8,9 @@ class ItemCategory (models.TextChoices):
     CONSUMABLE = "Consumable"
     UNIDENTIFIED = "Unidentified"
 
+
 class Equipment(models.Model):
+    id = models.UUIDField(default=uuid.uuid4, primary_key=True, editable=False)
     name = models.CharField(max_length=30)
     durability = models.IntegerField(default=100)
     add_attack = models.IntegerField(default=0)
@@ -19,10 +21,4 @@ class Equipment(models.Model):
         max_length=30,
         choices=ItemCategory.choices,
         default=ItemCategory.UNIDENTIFIED
-        )
-
-    # characters = models.ManyToManyField(Characters, related_name= "character")
-
-
-
-# Create your models here.
+    )

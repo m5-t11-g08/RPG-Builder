@@ -1,19 +1,21 @@
-from django.shortcuts import render
-from rest_framework.generics import ListAPIView
 from rest_framework import generics
-
-# from rest_framework.permissions import IsAuthenticated
-# from rest_framework.authentication import TokenAuthentication
-
+from rest_framework.authentication import TokenAuthentication
 from .models import Skill
 from .serializers import Skill_Serializer
+from equipments.permissions import IsSuperUserOrReadOnly
 
-class SkillsViews(generics.ListCreateAPIView):
+
+class SkillView(generics.ListCreateAPIView):
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsSuperUserOrReadOnly]
+
     queryset = Skill.objects.all()
     serializer_class = Skill_Serializer
 
-class SkillsViewsbyId(generics.RetrieveUpdateDestroyAPIView):
-    # authentication_classes = [TokenAuthentication]
+
+class SkillDetailView(generics.RetrieveUpdateDestroyAPIView):
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsSuperUserOrReadOnly]
+
     queryset = Skill.objects.all()
     serializer_class = Skill_Serializer
-

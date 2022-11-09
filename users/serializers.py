@@ -1,11 +1,8 @@
 from rest_framework import serializers
-from rest_framework.validators import UniqueValidator
 from .models import User
-
 
 class UserSerializer(serializers.ModelSerializer):
     password = serializers.CharField(write_only=True)
-
 
     class Meta:
         model = User
@@ -14,10 +11,14 @@ class UserSerializer(serializers.ModelSerializer):
             "username",
             "password",
             "email",
-            "is_superuser"
+            "is_superuser",
+            "user_char"
         ]
 
-    
+        read_only_fields = ["id"]
+
+        depth=1
+
     def create(self, validated_data:dict) -> User:
         user = User.objects.create_user(**validated_data)
 
@@ -43,7 +44,7 @@ class UserDetailSerializer(serializers.ModelSerializer):
 
     
 class UserUpdatePasswordSerializer(serializers.ModelSerializer):
-    password = serializers.CharField(write_only=True)
+    password = serializers.CharField()
     
     class Meta:
         model = User
@@ -59,7 +60,11 @@ class UserUpdatePasswordSerializer(serializers.ModelSerializer):
 
 
     def update(self, instance, validated_data):
-        instance.set_password(validated_data['password'])
+        if not validated_data.get("password"):
+            raise serializers.ValidationError({"detail": "password field required"})
+        
+        instance.set_password(validated_data.get("password"))
         instance.save()
 
         return instance
+            

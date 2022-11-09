@@ -5,6 +5,7 @@ from characters.models import Character
 from users.models import User
 from classes.models import Class
 
+
 class ModelCharacterTest(TestCase):
     @classmethod
     def setUpTestData(cls) -> None:
@@ -18,7 +19,7 @@ class ModelCharacterTest(TestCase):
         cls.class_data = {
             "name": "mago",
             "life": 100,
-            "atack": 100,
+            "attack": 100,
             "defense": 10,
             "mana": 50
         }
@@ -26,9 +27,14 @@ class ModelCharacterTest(TestCase):
         cls.classe = Class.objects.create(**cls.class_data)
 
         cls.character_data = {
-            "name": "character"
+            "name": "character",
+            "level": 1,
+            "silver": 100,
+            "gold": 100, 
+            "char_class_id": cls.classe.id,
+            "user_id": cls.user.id
         }
-        cls.character = Character.objects.create(**cls.character_data, user=cls.user, classe=cls.classe)
+        cls.character = Character.objects.create(**cls.character_data, user=cls.user, char_class=cls.classe)
 
 
     def test_name_character_is_unique(self):
@@ -36,6 +42,7 @@ class ModelCharacterTest(TestCase):
         expected_msg = 'duplicate key value violates unique constraint "characters_character_name_key"'
         with self.assertRaisesMessage(IntegrityError, expected_msg):
             Character.objects.create(**self.character_data)
+    
 
     def test_pk_is_uuid(self):
         """"Verifica se a chave primaria é um UUID"""

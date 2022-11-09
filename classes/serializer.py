@@ -21,14 +21,10 @@ class ClassSerializer(serializers.ModelSerializer):
             "name": {
                 "validators": [
                     UniqueValidator(
-                        queryset=Class.objects.all(), message="name alredy exists"
+                        queryset=Class.objects.all(), message="name already exists"
                     )
                 ]
             },
         }
 
         depth = 1
-
-    def create(self, validated_data):
-
-        return Class.objects.create(**validated_data)

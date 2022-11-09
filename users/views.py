@@ -4,6 +4,7 @@ from rest_framework.views import Request, Response, status, APIView
 from rest_framework import generics
 from rest_framework.authtoken.models import Token
 from rest_framework.authentication import TokenAuthentication
+from rest_framework.views import exception_handler
 from .permissions import OwnAccountOrReadOnlyPermission, OwnAccountPermission
 from .serializers import UserSerializer, LoginSerializer, UserDetailSerializer, UserUpdatePasswordSerializer
 from .models import User
