@@ -16,8 +16,6 @@ class Skill_Serializer(serializers.ModelSerializer):
             'characters'
         ]
 
-        # extra_kwargs = {'id': {'read_only': True}}
-
 
     def create(self, validated_data:dict) -> Skill:
         if "characters" in validated_data:

@@ -4,9 +4,634 @@ info:
   version: 1.0.0
   description: An API to manage tabletop RPG games
 paths:
+  /api/attribute/:
+    get:
+      operationId: api_attribute_list
+      parameters:
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedAttributeGetList'
+          description: ''
+  /api/attribute/{character_id}/:
+    post:
+      operationId: api_attribute_create
+      parameters:
+      - in: path
+        name: character_id
+        schema:
+          type: string
+        required: true
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          description: No response body
+  /api/attribute/update/{id}/:
+    put:
+      operationId: api_attribute_update_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this attribute.
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AttributeGet'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/AttributeGet'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/AttributeGet'
+        required: true
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AttributeGet'
+          description: ''
+    patch:
+      operationId: api_attribute_update_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this attribute.
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedAttributeGet'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedAttributeGet'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedAttributeGet'
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AttributeGet'
+          description: ''
+  /api/character/:
+    get:
+      operationId: api_character_retrieve
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          description: No response body
+    post:
+      operationId: api_character_create
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          description: No response body
+  /api/character/{character_id}/:
+    get:
+      operationId: api_character_retrieve_2
+      parameters:
+      - in: path
+        name: character_id
+        schema:
+          type: string
+        required: true
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          description: No response body
+    patch:
+      operationId: api_character_partial_update
+      parameters:
+      - in: path
+        name: character_id
+        schema:
+          type: string
+        required: true
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          description: No response body
+    delete:
+      operationId: api_character_destroy
+      parameters:
+      - in: path
+        name: character_id
+        schema:
+          type: string
+        required: true
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/class/:
+    get:
+      operationId: api_class_list
+      parameters:
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedClassList'
+          description: ''
+    post:
+      operationId: api_class_create
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Class'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Class'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Class'
+        required: true
+      security:
+      - tokenAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Class'
+          description: ''
+  /api/class/{id}/:
+    get:
+      operationId: api_class_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this class.
+        required: true
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Class'
+          description: ''
+    put:
+      operationId: api_class_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this class.
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Class'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Class'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Class'
+        required: true
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Class'
+          description: ''
+    patch:
+      operationId: api_class_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this class.
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedClass'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedClass'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedClass'
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Class'
+          description: ''
+    delete:
+      operationId: api_class_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this class.
+        required: true
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/equipment/:
+    get:
+      operationId: api_equipment_list
+      parameters:
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedEquipmentList'
+          description: ''
+    post:
+      operationId: api_equipment_create
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Equipment'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Equipment'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Equipment'
+        required: true
+      security:
+      - tokenAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Equipment'
+          description: ''
+  /api/equipment/{id}/:
+    get:
+      operationId: api_equipment_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this equipment.
+        required: true
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Equipment'
+          description: ''
+    put:
+      operationId: api_equipment_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this equipment.
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Equipment'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Equipment'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Equipment'
+        required: true
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Equipment'
+          description: ''
+    patch:
+      operationId: api_equipment_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this equipment.
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedEquipment'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedEquipment'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedEquipment'
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Equipment'
+          description: ''
+    delete:
+      operationId: api_equipment_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this equipment.
+        required: true
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      responses:
+        '204':
+          description: No response body
+  /api/skill/:
+    get:
+      operationId: api_skill_list
+      parameters:
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedSkill_List'
+          description: ''
+    post:
+      operationId: api_skill_create
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Skill_'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Skill_'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Skill_'
+        required: true
+      security:
+      - tokenAuth: []
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Skill_'
+          description: ''
+  /api/skill/{id}/:
+    get:
+      operationId: api_skill_retrieve
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this skill.
+        required: true
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Skill_'
+          description: ''
+    put:
+      operationId: api_skill_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this skill.
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Skill_'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Skill_'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Skill_'
+        required: true
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Skill_'
+          description: ''
+    patch:
+      operationId: api_skill_partial_update
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this skill.
+        required: true
+      tags:
+      - api
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedSkill_'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedSkill_'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedSkill_'
+      security:
+      - tokenAuth: []
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Skill_'
+          description: ''
+    delete:
+      operationId: api_skill_destroy
+      parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+          format: uuid
+        description: A UUID string identifying this skill.
+        required: true
+      tags:
+      - api
+      security:
+      - tokenAuth: []
+      responses:
+        '204':
+          description: No response body
   /api/user/:
     get:
       operationId: api_user_list
+      parameters:
+      - name: page
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
       tags:
       - api
       security:
@@ -18,9 +643,7 @@ paths:
           content:
             application/json:
               schema:
-                type: array
-                items:
-                  $ref: '#/components/schemas/User'
+                $ref: '#/components/schemas/PaginatedUserList'
           description: ''
     post:
       operationId: api_user_create
@@ -233,6 +856,363 @@ paths:
           description: ''
 components:
   schemas:
+    AttributeGet:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        character_id:
+          type: string
+          format: uuid
+          nullable: true
+          readOnly: true
+        life:
+          type: integer
+          maximum: 2147483647
+          minimum: 0
+        attack:
+          type: integer
+          maximum: 2147483647
+          minimum: 0
+        defense:
+          type: integer
+          maximum: 2147483647
+          minimum: 0
+        mana:
+          type: integer
+          maximum: 2147483647
+          minimum: 0
+      required:
+      - attack
+      - character_id
+      - defense
+      - id
+      - life
+      - mana
+    Class:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        name:
+          type: string
+          maxLength: 30
+        life:
+          type: integer
+          maximum: 2147483647
+          minimum: 0
+        attack:
+          type: integer
+          maximum: 2147483647
+          minimum: 0
+        defense:
+          type: integer
+          maximum: 2147483647
+          minimum: 0
+        mana:
+          type: integer
+          maximum: 2147483647
+          minimum: 0
+      required:
+      - attack
+      - defense
+      - id
+      - life
+      - mana
+      - name
+    Equipment:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        name:
+          type: string
+          maxLength: 30
+        durability:
+          type: integer
+        add_attack:
+          type: integer
+          default: 0
+        add_defense:
+          type: integer
+          default: 0
+        add_mana:
+          type: integer
+          default: 0
+        add_life:
+          type: integer
+          default: 0
+        category:
+          type: string
+        characters:
+          type: array
+          items: {}
+          writeOnly: true
+      required:
+      - category
+      - durability
+      - id
+      - name
+    Nested:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        name:
+          type: string
+          maxLength: 20
+        level:
+          type: integer
+          maximum: 2147483647
+          minimum: 0
+        silver:
+          type: integer
+          maximum: 2147483647
+          minimum: 0
+        gold:
+          type: integer
+          maximum: 2147483647
+          minimum: 0
+        char_class:
+          type: string
+          format: uuid
+        user:
+          type: string
+          format: uuid
+        equipments:
+          type: array
+          items:
+            type: string
+            format: uuid
+        skills:
+          type: array
+          items:
+            type: string
+            format: uuid
+      required:
+      - char_class
+      - equipments
+      - gold
+      - id
+      - level
+      - name
+      - silver
+      - skills
+      - user
+    PaginatedAttributeGetList:
+      type: object
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/AttributeGet'
+    PaginatedClassList:
+      type: object
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Class'
+    PaginatedEquipmentList:
+      type: object
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Equipment'
+    PaginatedSkill_List:
+      type: object
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Skill_'
+    PaginatedUserList:
+      type: object
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?page=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/User'
+    PatchedAttributeGet:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        character_id:
+          type: string
+          format: uuid
+          nullable: true
+          readOnly: true
+        life:
+          type: integer
+          maximum: 2147483647
+          minimum: 0
+        attack:
+          type: integer
+          maximum: 2147483647
+          minimum: 0
+        defense:
+          type: integer
+          maximum: 2147483647
+          minimum: 0
+        mana:
+          type: integer
+          maximum: 2147483647
+          minimum: 0
+    PatchedClass:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        name:
+          type: string
+          maxLength: 30
+        life:
+          type: integer
+          maximum: 2147483647
+          minimum: 0
+        attack:
+          type: integer
+          maximum: 2147483647
+          minimum: 0
+        defense:
+          type: integer
+          maximum: 2147483647
+          minimum: 0
+        mana:
+          type: integer
+          maximum: 2147483647
+          minimum: 0
+    PatchedEquipment:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        name:
+          type: string
+          maxLength: 30
+        durability:
+          type: integer
+        add_attack:
+          type: integer
+          default: 0
+        add_defense:
+          type: integer
+          default: 0
+        add_mana:
+          type: integer
+          default: 0
+        add_life:
+          type: integer
+          default: 0
+        category:
+          type: string
+        characters:
+          type: array
+          items: {}
+          writeOnly: true
+    PatchedSkill_:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        name:
+          type: string
+          maxLength: 30
+        damage:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+        mana_cost:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+        characters:
+          type: array
+          items: {}
+          writeOnly: true
     PatchedUserDetail:
       type: object
       properties:
@@ -275,6 +1255,32 @@ components:
           title: Superuser status
           description: Designates that this user has all permissions without explicitly
             assigning them.
+    Skill_:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+          readOnly: true
+        name:
+          type: string
+          maxLength: 30
+        damage:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+        mana_cost:
+          type: integer
+          maximum: 2147483647
+          minimum: -2147483648
+        characters:
+          type: array
+          items: {}
+          writeOnly: true
+      required:
+      - damage
+      - id
+      - name
     User:
       type: object
       properties:
@@ -297,10 +1303,15 @@ components:
           title: Superuser status
           description: Designates that this user has all permissions without explicitly
             assigning them.
+        user_char:
+          allOf:
+          - $ref: '#/components/schemas/Nested'
+          readOnly: true
       required:
       - email
       - id
       - password
+      - user_char
       - username
     UserDetail:
       type: object
