@@ -46,10 +46,6 @@ class CharacterSerializer(serializers.ModelSerializer):
             "equipments",
             "skills"
         ]
-    # char_class = CharClassSerializer
-    # equipments = EquipmentsSerializer
-    # skills = SkillsSerializer
-    # stats = StatsSerializer
 
 
     def create(self, validated_data):
