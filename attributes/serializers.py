@@ -1,7 +1,10 @@
 from rest_framework import serializers
 from .models import Attribute
+from characters.serializers import CharacterSerializer
 
 class AttributeSerializer(serializers.ModelSerializer):
+    character = CharacterSerializer()
+
     class Meta:
         model = Attribute
         fields = "__all__"
@@ -9,7 +12,6 @@ class AttributeSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         attribute = Attribute.objects.create(**validated_data)
-        # validated_data['character']
-        import ipdb
-        ipdb.set_trace()
+        attribute.save()
+
         return attribute

@@ -11,7 +11,6 @@ class CharacterSerializer(serializers.ModelSerializer):
     char_class = ClassSerializer(read_only=True)
     equipments = EquipmentSerializer(many=True, read_only=True)
     skills = Skill_Serializer(many=True, read_only=True)
-    # user = UserSerializer(read_only=True)
 
     class Meta:
         model = Character
@@ -25,12 +24,12 @@ class CharacterSerializer(serializers.ModelSerializer):
             "char_class_id",
             "user_id",
             "equipments",
-            "skills"
+            "skills",
         ]
 
         read_only_fields = [
             "equipments",
-            "skills"
+            "skills",
         ]
     # char_class = CharClassSerializer
     # equipments = EquipmentsSerializer

@@ -8,16 +8,17 @@ from .models import Attribute
 from characters.models import Character
 from classes.serializer import ClassSerializer
 from equipments.serializers import EquipmentSerializer
+from characters.serializers import CharacterSerializer
+
 
 class AttributesRetrieveCharacter(APIView):
     authentication_classes = [TokenAuthentication]
     permission_classes = [IsSuperUserOrReadOnly]
 
-    def get(self, request: Request, character_id: str) -> Response:
+    def post(self, request: Request, character_id: str) -> Response:
         character = get_object_or_404(Character, id=character_id)
         class_character = ClassSerializer(character.char_class)
         equipaments = EquipmentSerializer(character.equipments, many=True)
-
 
         life = 0
         mana = 0
@@ -45,22 +46,20 @@ class AttributesRetrieveCharacter(APIView):
                 if key == "add_defense":
                     defense += value
 
+        character = CharacterSerializer(character)
+
         result = {
             "life": life,
             "attack": attack,
             "defense": defense,
             "mana": mana,
-            "character": character
+            "character": character.data
         }
 
         serializer = AttributeSerializer(data=result)
         serializer.is_valid(raise_exception=True)
 
-        serializer.save()
-
-        # attributes = Attribute.objects.create(**result, character=character)
-
-        # character.attributes.add(attributes)
+        serializer.save(char_attribute=character)
 
         return Response(serializer.data)
 
