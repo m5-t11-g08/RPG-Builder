@@ -3,12 +3,11 @@ from rest_framework.views import Response, status, APIView, Request
 from rest_framework import generics
 from django.shortcuts import get_object_or_404
 from rest_framework.authentication import TokenAuthentication
-from .serializers import AttributeSerializer
+from .serializers import AttributeSerializer, AttributeGetSerializer
 from .models import Attribute
 from characters.models import Character
 from classes.serializer import ClassSerializer
 from equipments.serializers import EquipmentSerializer
-from characters.serializers import CharacterSerializer
 
 
 class AttributesRetrieveCharacter(APIView):
@@ -46,20 +45,17 @@ class AttributesRetrieveCharacter(APIView):
                 if key == "add_defense":
                     defense += value
 
-        character = CharacterSerializer(character)
-
         result = {
             "life": life,
             "attack": attack,
             "defense": defense,
-            "mana": mana,
-            "character": character.data
+            "mana": mana
         }
 
         serializer = AttributeSerializer(data=result)
         serializer.is_valid(raise_exception=True)
 
-        serializer.save(char_attribute=character)
+        serializer.save(character=character)
 
         return Response(serializer.data)
 
@@ -68,4 +64,12 @@ class GetAttributes(generics.ListAPIView):
     permission_classes = [IsSuperUserOrReadOnly]
 
     queryset = Attribute.objects.all()
-    serializer_class = AttributeSerializer
+    serializer_class = AttributeGetSerializer
+
+
+class UpdateAttributes(generics.UpdateAPIView):
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsSuperUserOrReadOnly]
+
+    queryset = Attribute.objects.all()
+    serializer_class = AttributeGetSerializer
