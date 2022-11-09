@@ -29,8 +29,6 @@ class EquipmentSerializer(serializers.Serializer):
                 setattr(instance, key, value)
             instance.save()
             for character in characters:
-                # import ipdb
-                # ipdb.set_trace()
                 try:
                     obj = Character.objects.get(name=character)
                     obj.equipments.add(instance)
